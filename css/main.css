@@ -118,15 +118,16 @@ body {
     background-color: #f2f2f2;
 
     /* Este elemento se modifica de forma dinámica desde JS */
+    visibility: hidden;
     opacity: 0;
-    z-index: -1;
+    transition: visibility 0s linear 0ms, opacity 300ms;
 }
 
 /* Estados */
 .chart__tooltip.visible {
+    visibility: visible;
     opacity: 1;
-    z-index: 1;
-    transition: opacity 1s ease-in;
+    transition: visibility 0s linear 0s, opacity 100ms;
 }
 
 .chart__tooltip--close {
@@ -145,16 +146,8 @@ body {
     cursor: pointer;
 }
 
-.chart__tooltip .chart__tooltip--close {
-    pointer-events: none;
-}
-
-.chart__tooltip.visible .chart__tooltip--close {
-    pointer-events: all;
-}
-
-.chart__tooltip--close {
-    outline: none;
+.chart__tooltip--close:visited {
+    background-color: red;
 }
 
 .chart__tooltip--close img {
@@ -162,7 +155,6 @@ body {
     height: auto;
 
     pointer-events: none;
-    outline: none;
 }
 
 /* Contenido */

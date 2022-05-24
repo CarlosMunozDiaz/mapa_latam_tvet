@@ -88,7 +88,22 @@ d3.queue()
             d3.event.preventDefault();
             d3.event.stopPropagation();
 
-            //Tooltip
+            document.getElementById('chartTooltip').innerHTML = '';
+
+            //Tooltip - Primera parte
+            let otra = document.createElement('div');
+            otra.className = 'chart__tooltip--close';
+            otra.id = 'tooltip-close';
+
+            otra.innerHTML = '<img src="https://raw.githubusercontent.com/CarlosMunozDiaz/mapa_latam_tvet/main/img/close.svg" width="12" height="12" alt="Icono cerrar" title="Cerrar">';
+
+            let otra2 = document.createElement('div');
+            otra2.className = 'chart__tooltip--content';
+            otra2.id = 'tooltip-content';
+
+            document.getElementById('chartTooltip').appendChild(otra2);
+
+            //Tooltip - Segunda parte
             let html = '';
 
             //Título + Tipos
@@ -117,13 +132,22 @@ d3.queue()
             //Bucle para enlaces
             for(let i = 0; i < d.data.length; i++) {
                 html += '<div class="chart__tooltip_b-text"><p class="chart__tooltip--text" id="tooltip-text">' + d.data[i].Titulo_ES + '</p><a href="' + d.data[i].link + '" target=_blank>Más información</a></div>';
-            }
+            }                      
+
+            function prueba() {
+                document.getElementById('chartTooltip').innerHTML = '';
+                tooltip.classed('visible',false);
+            }           
+
+            setTimeout(() => {
+                document.getElementById('chartTooltip').appendChild(otra);
+                document.getElementById('tooltip-close').addEventListener('click',prueba, false);
+            }, 150);
 
             setTimeout( function() {
                 document.getElementById('tooltip-content').innerHTML = html;
-            }, 150);
-            
-            tooltip.classed('visible', true);
+                tooltip.classed('visible', true);
+            }, 150);             
         }        
         
         //Países sin datos
@@ -148,16 +172,7 @@ d3.queue()
         function zoomed() {
             g.selectAll('path').attr('transform', d3.event.transform);
 
-            document.getElementById('tooltip-content').innerHTML = '';
+            document.getElementById('chartTooltip').innerHTML = '';
             tooltip.classed('visible',false);
-        }
-
-        //Cuando se clique en la cruz de cierre, cerramos el tooltip
-        document.getElementById('tooltip-close').addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            document.getElementById('tooltip-content').innerHTML = '';
-            tooltip.classed('visible',false);
-        });
+        }        
     });
