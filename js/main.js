@@ -80,7 +80,7 @@ d3.queue()
                 .attr("class", "country-yes")
                 .attr("fill", '#113678')
                 .attr("d", path)
-                .on('pointerdown', function(d,i,e) {
+                .on('click', function(d,i,e) {
                     drawTooltip(d);                               
                 });        
 
